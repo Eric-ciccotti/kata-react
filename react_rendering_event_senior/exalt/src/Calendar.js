@@ -7,6 +7,18 @@ import jsonEvent from './input.json'
 const Calendar = () => {
 
     const [events, setEvents] = useState(null)
+    const [testEvent,] = useState([
+        {
+            "title": "Event 1",
+            "start": 1567674000000,
+            "end": 1567706400000
+        },
+        {
+            "title": "Event 2",
+            "start": 1567900800000,
+            "end": 1568073600000
+        }
+    ])
 
     useEffect(() => {
 
@@ -18,10 +30,10 @@ const Calendar = () => {
             const hrs = start.split(':').splice(0, 1)
             const min = start.split(':').splice(1, 1)
 
-            const startInMilliseconds = toMilliseconds(hrs, min);
-            const durationInMillisecond = toMilliseconds(duration)
+            const startInMilliseconds = toMilliseconds(hrs, min, 0);
+            const durationInMillisecond = toMilliseconds(0, duration, 0)
 
-            const newObj = { end: durationInMillisecond, start: startInMilliseconds, id: elem.id };
+            const newObj = { end: startInMilliseconds + durationInMillisecond, start: startInMilliseconds, title: `event ${elem.id}`, id: elem.id };
             setEvents(events)
             console.log(newObj);
             return newObj;
@@ -46,7 +58,7 @@ const Calendar = () => {
                 allDaySlot={false}
                 slotEventOverlap={false}
                 dayHeaders={false}
-                events={events}
+                events={{ testEvent }}
             />
         </div>
     )
